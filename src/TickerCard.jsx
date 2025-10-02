@@ -63,6 +63,9 @@ const TickerCard = ({ ticker }) => {
   const priceChange = currentPrice - previousClose
   const isPositive = priceChange >= 0
 
+  const isKoreanStock = ticker.endsWith('.KS') || ticker.endsWith('.KQ')
+  const currencyMarker = isKoreanStock ? '₩' : '$'
+
   return (
     <div className="bg-white rounded-lg shadow-xl p-6 w-80 transform transition duration-500 hover:scale-105">
       <div className="flex justify-between items-center mb-4">
@@ -72,7 +75,7 @@ const TickerCard = ({ ticker }) => {
       <div></div>
       
       <div className={`text-4xl font-extrabold mb-2 ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
-        ${currentPrice.toFixed(2)}
+        {currencyMarker}{currentPrice.toFixed(2)}
       </div>
 
       <div className={`text-base font-semibold ${isPositive ? 'text-green-700' : 'text-red-700'}`}>
@@ -80,7 +83,7 @@ const TickerCard = ({ ticker }) => {
       </div>
       
       <div className="mt-4 text-sm text-gray-500">
-        전일 종가: ${previousClose.toFixed(2)}
+        전일 종가: {currencyMarker}{previousClose.toFixed(2)}
       </div>
     </div>
   )
